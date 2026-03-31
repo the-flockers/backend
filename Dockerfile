@@ -5,10 +5,7 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Install system dependencies and clean up apt cache
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    git \
-    nodejs \
-    npm && \
+RUN apt-get update && apt-get install -y --no-install-recommends git && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy application code into the container
@@ -24,9 +21,9 @@ RUN useradd -m -u 1000 appuser && \
     chown -R appuser:appuser /app && \
     chmod -R 755 /app && \
     # Make code directories read-only for appuser (prevent code modification)
-    chmod -R 555 /app/model && \
-    chmod -R 555 /app/api && \
+    chmod -R 555 /app/flaskr && \
     # Keep /app/instance writable for database and uploads
+    mkdir -p /app/instance && \
     chmod -R 755 /app/instance && \
     # Restrict access to /proc to prevent reading parent process env vars
     chmod 700 /proc 2>/dev/null || true
@@ -36,10 +33,10 @@ USER appuser
 
 # Set environment variables
 ENV FLASK_ENV=production \
-    GUNICORN_CMD_ARGS="--workers=5 --threads=2 --bind=0.0.0.0:8587 --timeout=30 --access-logfile -"
+    GUNICORN_CMD_ARGS="--workers=5 --threads=2 --bind=0.0.0.0:8422 --timeout=30 --access-logfile -"
 
 # Expose application port
-EXPOSE 8587
+EXPOSE 8422
 
 # Start Gunicorn server
-CMD ["gunicorn", "main:app"]
+CMD ["gunicorn", "flaskr:create_app()"]
