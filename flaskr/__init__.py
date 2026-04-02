@@ -17,14 +17,11 @@ def create_app(test_config=None):
 
     os.makedirs(app.instance_path, exist_ok=True)
 
-    @app.route("/hello")
-    def hello():
-        return "Hello, World!"
-
-    from . import auth, db
+    from . import auth, dashboard, db
 
     db.init_app(app)
 
     app.register_blueprint(auth.bp)
+    app.register_blueprint(dashboard.bp)
 
     return app
