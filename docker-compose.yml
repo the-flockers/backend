@@ -5,8 +5,29 @@ services:
     build: .
     env_file:
       - .env # This file is optional; defaults will be used if it does not exist
+    environment:
+      - ORS_URL=http://ors-app:8082
     ports:
       - "8422:8422"
     volumes:
       - ./instance:/app/instance
     restart: unless-stopped
+    depends_on:
+      - ors-app
+
+  ors_app:
+    build:
+      context: ./ors
+      target: publish
+    container_name: ors-app
+    image: openrouteservice/openrouteservice:v9.8.0
+    volumes:
+      - ./ors/ors-docker:/home/ors
+      - ./ors-config.yml:/home/ors/config/ors-config.yml
+    environment:
+      ORS_CONFIG_LOCATION: /home/ors/config/ors-config.yml
+      REBUILD_GRAPHS: "False"
+      CONTAINER_LOG_LEVEL: INFO
+      XMS: 1g
+      XMX: 2g
+      ADDITIONAL_JAVA_OPTS: ""
