@@ -1,8 +1,9 @@
-version: '3'
 services:
   web:
     image: flask_open
-    build: .
+    build:
+      context: .
+      network: host
     env_file:
       - .env # This file is optional; defaults will be used if it does not exist
     environment:
@@ -15,10 +16,7 @@ services:
     depends_on:
       - ors-app
 
-  ors_app:
-    build:
-      context: ./ors
-      target: publish
+  ors-app:
     container_name: ors-app
     image: openrouteservice/openrouteservice:v9.8.0
     volumes:

@@ -1,5 +1,4 @@
+ors/
 venv/
 __pycache__/
 instance/
-.env
-ors-docker/

@@ -6,7 +6,7 @@ ors:
   engine:
     profile_default:
       build:
-        source_file: /home/ors/files/
+        source_file: ors/socal-260412.osm.pbf
     profiles:
       driving-car:
         enabled: true
