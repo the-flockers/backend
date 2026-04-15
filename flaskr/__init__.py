@@ -17,10 +17,11 @@ def create_app(test_config=None):
 
     os.makedirs(app.instance_path, exist_ok=True)
 
-    from . import auth, dashboard, db, ors
+    from . import alpr, auth, dashboard, db, ors
 
     db.init_app(app)
 
+    app.register_blueprint(alpr.bp)
     app.register_blueprint(auth.bp)
     app.register_blueprint(dashboard.bp)
     app.register_blueprint(ors.bp)
