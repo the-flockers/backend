@@ -21,3 +21,8 @@ ALPR_LOCATIONS = "san_diego_alprs.geojson"
 @bp.route("/locations", methods=["GET"])
 def locations():
     return send_file(ALPR_LOCATIONS)
+
+
+@bp.route("/count", methods=["GET"])
+def count():
+    return str(932)
