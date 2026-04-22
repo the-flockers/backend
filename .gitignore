@@ -4,4 +4,3 @@ instance/
 .env
 ors-docker/
 *.pbf
-san_diego.geojson
