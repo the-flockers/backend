@@ -26,7 +26,7 @@ services:
     volumes:
       - ./ors/ors-docker:/home/ors
       - ./ors-config.yml:/home/ors/config/ors-config.yml
-      - ./socal-260413.osm.pbf:/home/ors/files/socal.osm.pbf
+      - ./san-diego.osm.pbf:/home/ors/files/socal.osm.pbf
     environment:
       ORS_CONFIG_LOCATION: /home/ors/config/ors-config.yml
       REBUILD_GRAPHS: "True"
