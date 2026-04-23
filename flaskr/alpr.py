@@ -2,7 +2,7 @@
 
 import os
 
-from flask import Blueprint, send_file
+from flask import Blueprint, current_app, send_file
 from flask_cors import CORS
 
 bp = Blueprint("alpr", __name__, url_prefix="/alpr")
@@ -14,13 +14,12 @@ if os.getenv("DEV_MODE") == "true":
 
 CORS(bp, origins=allowed_origins)
 
-ALPR_LOCATIONS = "san_diego_alprs.geojson"
-
 
 # Get ALPR locations
 @bp.route("/locations", methods=["GET"])
 def locations():
-    return send_file(ALPR_LOCATIONS)
+    filepath = os.path.join(current_app.root_path, "san_diego_alprs.geojson")
+    return send_file(filepath)
 
 
 @bp.route("/count", methods=["GET"])
