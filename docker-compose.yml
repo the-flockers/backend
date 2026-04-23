@@ -12,6 +12,10 @@ services:
       - "8422:8422"
     volumes:
       - ./instance:/app/instance
+      - ./san_diego.pbf:/app/san_diego.pbf:ro
+    command: >
+      sh -c "python scripts/extract_cameras.py /app/san_diego.pbf && gunicorn
+      'flaskr:create_app()'"
     restart: unless-stopped
     depends_on:
       - ors-app

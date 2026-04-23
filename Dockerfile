@@ -21,7 +21,7 @@ RUN useradd -m -u 1000 appuser && \
     chown -R appuser:appuser /app && \
     chmod -R 755 /app && \
     # Make code directories read-only for appuser (prevent code modification)
-    chmod -R 555 /app/flaskr && \
+    chmod -R 755 /app/flaskr && \
     # Keep /app/instance writable for database and uploads
     mkdir -p /app/instance && \
     chmod -R 755 /app/instance && \
