@@ -14,7 +14,7 @@ services:
       - ./instance:/app/instance
       - ./san-diego.osm.pbf:/app/san-diego.osm.pbf:ro
     command: >
-      sh -c "python scripts/extract_cameras.py /app/san-diego.osm..pbf &&
+      sh -c "python scripts/extract_cameras.py /app/san-diego.osm.pbf &&
       gunicorn 'flaskr:create_app()'"
     restart: unless-stopped
     depends_on:
