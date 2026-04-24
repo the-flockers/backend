@@ -4,6 +4,15 @@ import sys
 
 import osmium
 
+"""
+Filtering:
+    osmium extract \
+      -b -117.6,32.6,-116.9,33.1 \
+      -s smart \
+      -o san-diego.osm.pbf \
+      socal-260423.osm.pbf
+"""
+
 
 class ALPRHandler(osmium.SimpleHandler):
     def __init__(self):
@@ -14,13 +23,15 @@ class ALPRHandler(osmium.SimpleHandler):
         if tags.get("man_made") != "surveillance":
             return False
 
-        surv_type = tags.get("surveillance:type", "").lower()
-        surv = tags.get("surveillance", "").lower()
+        values = []
 
-        if "alpr" in surv_type or surv == "alpr":
-            return True
+        for key in ["surveillance:type", "surveillance", "camera:type"]:
+            if key in tags:
+                values.extend(tags[key].lower().split(";"))
 
-        return False
+        values = [v.strip() for v in values]
+
+        return any(v in ["alpr", "anpr"] for v in values)
 
     def node(self, n):
         if self.check_tags(n.tags):
