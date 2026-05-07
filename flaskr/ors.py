@@ -3,7 +3,7 @@
 import os
 
 import requests
-from flask import Blueprint, request
+from flask import Blueprint, Response, request
 
 from flaskr.auth import login_required
 
@@ -36,18 +36,20 @@ def directions():
 
     ors_url = os.environ.get("ORS_URL", "http://localhost:8082")
     try:
-        headers = {
-            "Content-Type": "application/json; charset=utf-8",
-            "Accept": "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
-        }
         res = requests.post(
-            f"{ors_url}/ors/v2/directions/{profile}",
+            f"{ors_url}/ors/v2/directions/{profile}/geojson",
             json={"coordinates": coordinates},
-            headers=headers,
+            headers={"Content-Type": "application/json"},
+            timeout=10,
         )
-        return res.json(), res.status_code
+
+        return Response(
+            res.content,
+            status=res.status_code,
+            content_type=res.headers.get("Content-Type", "application/json"),
+        )
     except requests.exceptions.RequestException as e:
         return {
-            "error": "Failed to connect to internal ORS routing service",
+            "error": "Failed to connect to ORS service",
             "details": str(e),
         }, 503

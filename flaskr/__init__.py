@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 
 
 def create_app(test_config=None):
@@ -9,6 +10,12 @@ def create_app(test_config=None):
         SECRET_KEY="dev",
         DATABASE=os.path.join(app.instance_path, "flaskr.sqlite"),
     )
+
+    # Allow localhost origins in development mode
+    allowed_origins = ["https://deflock.opencodingsociety.com"]
+    if os.getenv("DEV_MODE") == "true":
+        allowed_origins.extend(["http://127.0.0.1:4000", "http://localhost:4000"])
+    CORS(app, origins=allowed_origins)
 
     if test_config is None:
         app.config.from_pyfile("config.py", silent=True)
