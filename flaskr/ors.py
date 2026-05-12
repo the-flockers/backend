@@ -34,11 +34,16 @@ def directions():
     coordinates = data["coordinates"]
     profile = data.get("profile", "driving-car")
 
+    payload = {"coordinates": coordinates}
+
+    if "options" in data:
+        payload["options"] = data["options"]
+
     ors_url = os.environ.get("ORS_URL", "http://localhost:8082")
     try:
         res = requests.post(
             f"{ors_url}/ors/v2/directions/{profile}/geojson",
-            json={"coordinates": coordinates},
+            json=payload,
             headers={"Content-Type": "application/json"},
             timeout=10,
         )
