@@ -5,6 +5,7 @@ import sys
 import osmium
 
 """
+We use a bbox to get the "SD Area"
 Filtering:
     osmium extract \
       -b -117.6,32.6,-116.9,33.1 \

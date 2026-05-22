@@ -1,7 +1,7 @@
 # DeFlock SD OSM Processing Backend
 
 ## Overview
-This backend is a Flask application for processing OpenStreetMap (OSM) data in the DeFlock SD workflow. It includes user authentication, database initialization, and web endpoints for interacting with processed tile data.
+This backend intends to provide interfacing for navigation and ALPR location data via OSM data. Data is passed through the API into internal [OpenRouteService](https://openrouteservice.org/) instance which provides navigational data.
 
 ## Prerequisites
 - Python 3.8+
@@ -34,5 +34,4 @@ flask --app flaskr run
 - `instance/` - instance folder with SQLite DB
 
 ## Notes
-- `nginx_flask_8587.conf` is an example Nginx configuration for production reverse proxy.
-- Use `docker-compose.yml` for containerized local development.
+- Use `docker-compose.yml` for containerized development/deployment.

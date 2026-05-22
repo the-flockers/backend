@@ -1,3 +1,5 @@
+# This file is defunct and currently not in use
+
 from flask import Blueprint, render_template
 
 from flaskr.auth import login_required

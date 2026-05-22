@@ -1,3 +1,5 @@
+# This file is defunct and currently not in use
+
 import sqlite3
 from datetime import datetime
 
