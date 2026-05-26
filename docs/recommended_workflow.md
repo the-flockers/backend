@@ -1,4 +1,4 @@
-# Recommend Workflow
+# Recommended Workflow
 
 Generally, production processes will follow this:
 
@@ -15,5 +15,5 @@ osmium extract \
 
 3. The `docker-compose.yml` file handles camera extract automatically in addition to setting up the ORS instance in the same network:
 ```
-docker-compose up -d --buld
+docker-compose up -d --build
 ```
