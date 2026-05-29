@@ -18,4 +18,4 @@ def locations():
 @bp.route("/count", methods=["GET"])
 def count():
     """gets alpr count, returned as an integer parsed as a string"""
-    return str(932)
+    return str(963)
